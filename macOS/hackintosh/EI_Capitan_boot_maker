@@ -1,0 +1,51 @@
+### XFORCE was here
+
+echo "Do you wish to creat a EI Capitan boot maker ?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes )
+        diskutil list
+
+        echo "# repartition /dev/disk1 GPT, one partition"
+        echo "# EFI will be created automatically"
+        echo "# second partition, "install_osx", HFS+J, remainder"
+        diskutil partitionDisk /dev/disk1 1 GPT HFS+J "install_osx" R
+
+        echo "# copy installer image"
+        sudo "/Applications/Install OS X El Capitan.app/Contents/Resources/createinstallmedia" --volume  /Volumes/install_osx --applicationpath "/Applications/Install OS X El Capitan.app" --nointeraction
+
+        # rename
+        sudo diskutil rename "Install OS X El Capitan" install_osx
+        echo "# temporary directory"
+        mkdir /tmp/install_esd
+
+        echo "# mount InstallESD.dmg in installer package"
+        hdiutil attach "/Applications/Install OS X El Capitan.app/Contents/SharedSupport/InstallESD.dmg" -readonly -mountpoint /tmp/install_esd -nobrowse
+
+        echo "# restore it to target"
+        sudo asr restore -source /tmp/install_esd/BaseSystem.dmg  -target /Volumes/install_osx -erase -format HFS+ -noprompt
+
+        echo "# rename the target to be less unwieldy"
+        diskutil rename "OS X Base System" install_osx
+
+        echo "# remove Packages symlink"
+        rm /Volumes/install_osx/System/Installation/Packages
+
+        echo "# copy Packages as folder"
+        cp -a /tmp/install_esd/Packages /Volumes/install_osx/System/Installation
+
+        echo "# copy BaseSystem.dmg"
+        cp -a /tmp/install_esd/BaseSystem.dmg /tmp/install_esd/BaseSystem.chunklist /Volumes/install_osx
+
+        echo "# unmount InstallESD.dmg"
+        hdiutil detach /tmp/install_esd
+
+        echo "# remove temporary directory"
+        rmdir /tmp/install_esd
+
+        echo "all done! enjoy"
+               break;;
+        No ) break;;
+    esac
+done
+

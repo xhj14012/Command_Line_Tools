@@ -1,0 +1,62 @@
+### XFORCE was here
+
+#!/bin/bash
+
+wifi="Wi-Fi"
+# "WenShi_Office_5G"
+proxy=192.168.7.113
+local=127.0.0.1
+local_port=8080
+http_port=8888
+https_port=8888
+socks_port=8889
+
+#[[ $# -ne 1 ]] && echo "$0 enable|disable" && exit 1
+#flag=$1
+
+function webproxy_set() {
+    [[ $# -ne 1 ]] && return
+
+    if [[ x$1 == x"on" ]]; then
+        sudo networksetup -setwebproxy "$wifi" $proxy $http_port
+        sudo networksetup -setsecurewebproxy "$wifi" $proxy $https_port
+        sudo networksetup -setsocksfirewallproxy "$wifi" $proxy $socks_port
+    else
+        sudo networksetup -setwebproxy "$wifi" $local $local_port
+        sudo networksetup -setsecurewebproxy "$wifi" $local $local_port
+        sudo networksetup -setsocksfirewallproxy "$wifi" $local $local_port
+        
+        sudo networksetup -setwebproxystate "$wifi" off
+        sudo networksetup -setsecurewebproxystate "$wifi" off
+        sudo networksetup -setsocksfirewallproxystate "$wifi" off
+    fi
+}
+
+function pac_set() {
+    [[ $# -ne 1 ]] && return
+
+    if [[ x$1 == x"on" ]]; then
+        sudo networksetup -setautoproxyurl "$wifi" http://$IP:$PORT/pac
+    else
+        sudo networksetup -setautoproxystate "$wifi" off
+    fi
+}
+
+echo "Do you wish to embrace the world ?"
+
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes )
+        echo "Set http/https proxy"
+        webproxy_set on
+        pac_set off
+        echo "Success"
+            break;;
+        No )
+        echo "Disable all proxy"
+        webproxy_set off
+        pac_set off
+        echo "Success"
+            break;;
+    esac
+done

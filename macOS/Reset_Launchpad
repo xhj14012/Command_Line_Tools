@@ -1,0 +1,13 @@
+### Qinghui sh
+
+echo "Do you wish to Reset Launchpad ?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes )
+        defaults write com.apple.dock ResetLaunchPad -bool true;
+        killall Dock;
+               break;;
+        No ) break;;
+    esac
+done
+
