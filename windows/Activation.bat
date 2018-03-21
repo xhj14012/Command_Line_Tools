@@ -25,6 +25,7 @@ echo %bar%
 timeout /t 10
 :en
 for /f "tokens=3 delims= " %%i in ('reg QUERY "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v "EditionID"') do set EditionID=%%i
+echo EditionID = %EditionID%
 if defined %EditionID% (echo.
 	cscript //Nologo %windir%\system32\slmgr.vbs /ipk !%EditionID%!
 	for /L %%a in (1,1,50) do (if defined a%%a (echo %bar% &echo Trying KMS server: !a%%a! &echo.
@@ -48,9 +49,17 @@ set Enterprise=NPPR9-FWDCX-D2C8J-H872K-2YT43
 set EnterpriseN=DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4
 set Education=NW6C2-QMPVW-D7KKK-3GKT6-VCFB2
 set EducationN=2WH4N-8QGBV-H22JP-CT43Q-MDWWJ
-set EnterpriseS=WNMTR-4C88C-JK8YV-HQ7T2-76DF9
-set EnterpriseSN=2F77B-TNFGY-69QQF-B8YKP-D69TJ
-set Datacenter=CB7KF-BWN84-R7R2Y-793K2-8XDDG
+::LTSB 2015
+::set EnterpriseS=WNMTR-4C88C-JK8YV-HQ7T2-76DF9
+::set EnterpriseSN=2F77B-TNFGY-69QQF-B8YKP-D69TJ
+::LTSB 2016
+set EnterpriseS=DCPHK-NFMTC-H88MJ-PFHPY-QJ4BJ
+set EnterpriseSN=QFFDN-GRT3P-VKWWX-X7T3R-8B639
+::Windows Server 2016
+::set ServerDatacenter=CB7KF-BWN84-R7R2Y-793K2-8XDDG
+::set ServerStandard=WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY
+::set ServerEssentials=JCKRF-N37P4-C2D82-9YXRT-4M63B
+
 goto :EOF
 
 :strset
