@@ -5,7 +5,7 @@ echo.&echo.
 
 ::set KMS_Server=kms.example.com
 
-::set KMS_Server=kms1.qinghuiss.com 
+set KMS_Server=kms1.qinghuiss.com 
 
 
 call :adminchk
