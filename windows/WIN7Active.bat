@@ -1,12 +1,14 @@
-@echo off&setlocal EnableDelayedExpansion&color 5e
+@echo off
+setlocal EnableDelayedExpansion&color 5e
 title KMS_Activation for Win7[Tsingrity-Edition]
-
+%1 %2
+mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :runas","","runas",1)(window.close)&goto :eof
+:runas
 echo.&echo.
 
 ::set KMS_Server=kms.example.com
 
-set KMS_Server=kms1.qinghuiss.com 
-
+::set KMS_Server=kms1.qinghuiss.com
 
 call :adminchk
 set Professional=FJ82H-XT6CR-J8D7P-XQJJ2-GPDD4
