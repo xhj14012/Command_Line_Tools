@@ -1,4 +1,10 @@
 @echo off
+rem This is a win7-10 activator tool
+rem enable or add server your like in batch file first
+rem run bat and follow the guide
+rem (win8 version unchecked)
+
+rem check https://github.com/xhj14012/Command_Line_Tools for undate
 
 ::set a0=example.com
 
@@ -11,14 +17,16 @@
 
 mode con cols=85 lines=25
 setlocal EnableDelayedExpansion&color 3e
-title KMS_Activation for Win10[Tsingrity-Edition]
+title KMS_Activation for Win7-10[Tsingrity-Edition]
 %1 %2
 mshta vbscript:createobject("shell.application").shellexecute("%~s0","goto :runas","","runas",1)(window.close)&goto :eof
 :runas
-call :strset
-call :netchk
-call :verchk
-call :setkey
+call :set_string
+call :check_network
+::call :check_version
+call :set_kms_key_10
+::call :set_kms_key_7
+
 
 if not defined bar goto en
 echo %bar%
@@ -36,7 +44,7 @@ if defined %EditionID% (echo.
        	goto failure) else (echo.&echo The defined key is not found: "%EditionID%" &echo.&pause)
 exit
 
-:setkey
+:set_kms_key_10
 set Core=TX9XD-98N7V-6WMQ6-BX7FG-H8Q99
 set CoreCountrySpecific=PVMJN-6DFY6-9CCP6-7BKTT-D3WVR
 set CoreN=3KHY7-WNT83-DGQKR-F7HPR-844BM
@@ -61,10 +69,20 @@ set EnterpriseSN=QFFDN-GRT3P-VKWWX-X7T3R-8B639
 ::set ServerDatacenter=CB7KF-BWN84-R7R2Y-793K2-8XDDG
 ::set ServerStandard=WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY
 ::set ServerEssentials=JCKRF-N37P4-C2D82-9YXRT-4M63B
+goto :EOF
+
+:set_kms_key_7
+set Professional=FJ82H-XT6CR-J8D7P-XQJJ2-GPDD4
+set ProfessionalN=MRPKT-YTG23-K7D7T-X2JMM-QY7MG
+set ProfessionalE=W82YF-2Q76Y-63HXB-FGJG9-GF7QX
+set Enterprise=33PXH-7Y6KF-2VJC9-XBBR8-HVTHH
+set EnterpriseN=YDRBP-3D83W-TY26F-D46B2-XCKRJ
+set EnterpriseE=C29WB-22CC8-VJ326-GHFJW-H9DH4J
+goto :EOF
 
 goto :EOF
 
-:strset
+:set_string
 chcp | findstr "936 950 437" > nul && (
 	set bar===========================================
 )
@@ -90,7 +108,7 @@ echo %bar% &echo.
 pause
 exit
 
-:netchk
+:check_network
 echo Waiting for the network...
 ping -n 1 www.qq.com | find /i "TTL" > nul && (cls & goto :EOF)
 ping -n 1 www.baidu.com | find /i "TTL" > nul && (cls & goto :EOF)
@@ -98,8 +116,8 @@ echo.&echo Please check the network and try again & echo.
 pause
 exit
 
-:verchk
-ver | find "10.0." >nul 2>nul && (goto :EOF)
+:check_version
+ver | find "10." >nul 2>nul && (goto :EOF)
 echo.&echo The current OS is not Windows 10 &echo.
 pause
 exit
