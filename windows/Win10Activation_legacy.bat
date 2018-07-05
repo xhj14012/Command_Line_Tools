@@ -2,8 +2,8 @@
 
 ::set a0=example.com
 
-set a1=kms1.qinghuiss.com
-set a2=kms2.qinghuiss.com
+::set a1=kms1.qinghuiss.com
+::set a2=kms2.qinghuiss.com
 ::set a3=kms3.qinghuiss.com
 ::set a4=kms4.qinghuiss.com
 ::set a5=kms5.qinghuiss.com
