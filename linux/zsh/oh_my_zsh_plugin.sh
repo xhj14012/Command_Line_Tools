@@ -22,9 +22,12 @@ vim ~/.zshrc
 # set plugins
 # "sublime z zsh-syntax-highlighting zsh-autosuggestions git-open themes"
 # set alias
-# alias go="git-open"
-# alias cp="cp -i"
-# alias brew="sudo apt"
-# export https_proxy=http://127.0.0.1:12333;export http_proxy=http://127.0.0.1:12333;export all_proxy=socks5://127.0.0.1:12333
+echo 'alias go="git-open"' >> ~/.zshrc
+echo 'alias cp="cp-i"' >> ~/.zshrc
+echo 'alias brew="sudo apt"' >> ~/.zshrc
+#surge
+echo 'export https_proxy=http://127.0.0.1:8888;export http_proxy=http://127.0.0.1:8888;# export all_proxy=socks5://127.0.0.1:8889' >> ~/.zshrc
+#zubuntu
+echo 'export https_proxy=http://127.0.0.1:12333;export http_proxy=http://127.0.0.1:12333;# export all_proxy=socks5://127.0.0.1:12333' >> ~/.zshrc
 source ~/.zshrc
 # ZSH_THEME="random"
