@@ -60,3 +60,5 @@ sudo ./cuda_8.0.61_375.26_linux.run --no-opengl-libs
 --uninstall (deprecated)：用于卸载CUDA Driver（已废弃）。
 --toolkit：表示只安装CUDA Toolkit，不安装Driver和Samples。
 --help：查看更多高级选项。
+
+unfinished
