@@ -31,14 +31,27 @@ sudo /etc/init.d/gdm3 stop
 ubuntu-drivers devices
 sudo apt install nvidia-396 nvidia-396-dev
 
-#check 
+#check driver
 sudo lshw -c video|grep configuration
 
-
-export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}
-
-export PATH=/usr/local/cuda-9.0/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
+#prepair g++6
+#check version
+gcc -v
+g++ -v
+#install g++6
+sudo apt-get install gcc-6
+sudo apt-get install g++-6
+#list g++ installed
+ls /usr/bin/gcc*
+ls /usr/bin/g++*
+#set g++6 as default
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 100
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
+#check again
+gcc -v
+g++ -v
 
 
 echo 'export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}' >> ~/.bashrc
@@ -47,14 +60,14 @@ echo 'export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_L
 echo 'export PATH=/usr/local/cuda-9.2/bin${PATH:+:${PATH}}' >> ~/.zshrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.zshrc
 
-7.third part libs
-sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
+//third part libs
+//sudo apt-get install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 
-#before
+#install lib
 sudo apt-get install freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libgl1-mesa-glx libglu1-mesa libglu1-mesa-dev
-#install cuda without driver
+#install cuda without driver,choose n if asked to install driver
 sudo sh cuda_9.2.88_396.26_linux.run --no-opengl-libs
-
+#isntall patch
 sudo sh cuda_9.2.88.1_linux.run
 #test cuda
 cd /usr/local/cuda-9.2/samples/1_Utilities/deviceQuery
