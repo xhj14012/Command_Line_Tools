@@ -15,10 +15,6 @@ sudo update-initramfs -u
 sudo /etc/init.d/gdm3 stop
 #for xubuntu
 sudo /etc/init.d/lightdm stop
-sudo init 3
-
-(linux各发行版，有个通用的系统运行级别。3为标准的多用户模式，5为X Window模式。可以用runlevel命令来查看当前系统运行level。ubuntu17.10桌面版，默认level是5。我们可以通过telinit命令切换运行模式)
-sudo telinit 3
 
 #check
 lsmod | grep nouveau 
@@ -29,7 +25,11 @@ sudo apt update
 sudo telinit 3
 sudo /etc/init.d/gdm3 stop
 ubuntu-drivers devices
+# for ubuntu 17.10 and before
 sudo apt install nvidia-396 nvidia-396-dev
+# for ubuntu 18.04
+# notice that nvidia graphics ppa change the nvidia-* install to nvidia-driver-*, but the old one is still works on older ubuntu version and don't konw why
+sudo apt install nvidia-driver-396
 
 #check driver
 sudo lshw -c video|grep configuration
